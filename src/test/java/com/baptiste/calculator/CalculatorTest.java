@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class CalculatorTest {
 
@@ -28,10 +29,25 @@ public class CalculatorTest {
     }
 
     @Test
+    void testAddOverflow() {
+        assertThatThrownBy(() -> Calculator.add(Integer.MAX_VALUE, 1))
+            .isInstanceOf(ArithmeticException.class);
+        assertThatThrownBy(() -> Calculator.add(Integer.MIN_VALUE, -1))
+            .isInstanceOf(ArithmeticException.class);
+    }
+
+    @Test
     void testDivide() {
         assertThat(Calculator.divide(6, 2)).isEqualTo(3);
         assertThat(Calculator.divide(7, 2)).isEqualTo(3);
         assertThat(Calculator.divide(-6, 2)).isEqualTo(-3);
+    }
+
+    @Test
+    void testDivideByZero() {
+        assertThatThrownBy(() -> Calculator.divide(10, 0))
+            .isInstanceOf(ArithmeticException.class)
+            .hasMessage("Division par zéro");
     }
 
     @Test
