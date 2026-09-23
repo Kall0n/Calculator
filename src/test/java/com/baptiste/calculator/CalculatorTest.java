@@ -1,6 +1,8 @@
 package com.baptiste.calculator;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CalculatorTest {
@@ -10,6 +12,18 @@ public class CalculatorTest {
         assertThat(Calculator.add(2, 3)).isEqualTo(5);
         assertThat(Calculator.add(-2, 3)).isEqualTo(1);
         assertThat(Calculator.add(0, 0)).isEqualTo(0);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "0, 1, 1",
+        "1, 2, 3",
+        "-2, 2, 0",
+        "0, 0, 0",
+        "-1, -2, -3"
+    })
+    void testAddParameterized(int opG, int opD, int resultatAttendu) {
+        assertThat(Calculator.add(opG, opD)).isEqualTo(resultatAttendu);
     }
 
     @Test
