@@ -27,6 +27,6 @@ tasks.jacocoTestReport {
     reports {
         xml.required.set(true)
         html.required.set(true)
-        html.outputLocation.set(layout.buildDirectory.dir("reports/jacoco/test"))
+        html.outputLocation.set(layout.projectDirectory.dir("reports"))
     }
 }
